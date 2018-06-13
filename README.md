@@ -23,3 +23,25 @@ Have a feel with TDD/BDD and compare enzyme with react-testing-library
 
 ### Misc
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+---
+
+### TIL (Today I learned)
+> 12.13.18
+
+`Spying on console.log/error/warn`
+
+```
+global.console = {
+  warn: jest.fn(),
+  log: jest.fn(),
+  error: jest.fn()
+}
+...
+it('then should break if there is no onSubmit props function', () => {
+  renderIntoDocument(<Form/>)
+  expect(console.error).toHaveBeenCalledTimes(1);
+})
+
+```
+![progress](https://cdn.pbrd.co/images/HpHaxWP.png)
