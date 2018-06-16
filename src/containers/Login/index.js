@@ -6,8 +6,7 @@ const Login = () => {
   return (
     <Layout>
       <h2 data-testid='login-screen'>Login</h2>
-      <LoginForm>
-      </LoginForm>
+      <LoginForm onSubmit={() => false}/>>
     </Layout>
   )
 }

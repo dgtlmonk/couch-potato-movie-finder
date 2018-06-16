@@ -17,6 +17,7 @@ describe('<Login />', () => {
        const { getByTestId } = comp
 
       expect(getByTestId('login-screen', { selector: 'h2' })).toBeInTheDOM()
+      expect(renderIntoDocument(<Login/>)).toMatchSnapshot()
     })
   });
 })

@@ -3,7 +3,6 @@ import 'jest-dom/extend-expect';
 import { default as Form} from '../components/Login/Form';
 import { cleanup, renderIntoDocument } from 'react-testing-library'
 
-
 global.console = {
   warn: jest.fn(),
   log: jest.fn(),
@@ -24,27 +23,27 @@ describe('<Login />', () => {
       comp = renderIntoDocument(<Form/>)
     })
 
-    it('then it should have username field', () => {
+    it('then username field should be visible', () => {
       const { getByLabelText } = comp  // by label
       const inputNode = getByLabelText('Username')
       expect(inputNode).toBeInTheDOM()
     })
 
-    it('then it should have password field', () => {
+    it('then password field should be visible', () => {
       const { getByTestId } = comp // or by data-testid
       const inputNode = getByTestId('password', { selector: 'input' })
 
       expect(inputNode).toBeInTheDOM()
     })
 
-    it('then it should have `Login` button', () => {
+    it('then `Login` button should be visible', () => {
       const { getByText } = comp
       const LoginButton = getByText('Login', { selector: 'button' })
       expect(LoginButton).toHaveTextContent('Login')
       expect(LoginButton).toBeInTheDOM()
     })
 
-    it('then should break if there is no onSubmit props function', () => {
+    it('then it should break if required props is missing', () => {
         expect(console.error).toHaveBeenCalledTimes(1);
     })
   })
