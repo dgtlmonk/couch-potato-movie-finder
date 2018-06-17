@@ -1,21 +1,20 @@
 import { fromJS } from 'immutable';
 import { handleActions } from "redux-actions";
-import { LOGIN } from "./constants";
-import { REQUEST } from "./actions";
+import { REQUEST} from "./constants";
+import { LOGIN } from "./actions";
 
 import {
   action
 } from './actions';
 
-const InitialState = fromJS({});
+export const InitialState = fromJS({
+  loggedin: false,
+});
 
-const loginReducer = handleActions(
-  {
-    [LOGIN[REQUEST]]: (state = InitialState, action) => {
-      return InitialState
-    }
+const loginReducer = handleActions({
+  'LOGIN_REQUEST': state => {
+    return state.set('loggedin', true)
   },
-  InitialState,
-);
+}, InitialState);
 
-export default qaReducer;
+export default loginReducer;
