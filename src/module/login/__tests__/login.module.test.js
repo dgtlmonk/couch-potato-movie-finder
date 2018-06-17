@@ -55,17 +55,12 @@ describe('Login Redux Module', () => {
       )
     })
 
-    it('should execute fetch data', () => {
+    it('should set state `loggedin` to `true` after logging in', () => {
       store.dispatch(action.login())
 
       const newState = store.getState().toJS()
       expect(newState).toHaveProperty('loggedin', true)
     })
-
-
-    it('should reduce when LOGIN_REQUEST action is received', () => {
-
-    });
   });
 
   describe('Login SAGA', () => {
