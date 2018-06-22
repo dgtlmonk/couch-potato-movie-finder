@@ -44,6 +44,7 @@ describe('<Login />', () => {
     })
 
     it('then it should break if required props is missing', () => {
+        // expect(console.error).toThrow();
         expect(console.error).toHaveBeenCalledTimes(1);
     })
   })
