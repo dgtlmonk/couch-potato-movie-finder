@@ -1,31 +1,7 @@
 
 import { call, put, take } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
-import axios from 'axios' // v0.15.3
-import httpAdapter from 'axios/lib/adapters/http'
-import nock from 'nock'
-// import fetch from 'jest-fetch-mock'
 
-
-const endpoint = 'http://localhost'
-const service = 'login'
-
-// https://github.com/nock/nock/issues/699
-axios.defaults.host = endpoint;
-axios.defaults.adapter = httpAdapter;
-
-nock(endpoint)
-.post(`/${service}`)
-.reply(200,  {
-  'Access-Control-Allow-Origin': '*',
-  status: 'OK',
-  meta: {
-    username: 'chuck',
-    permission: 0,
-    account_id: '507f1f77bcf86cd799439011',
-    email: 'chuck.norris@gmail.com'
-  }
-});
 
 const createAction = {
   type: 'LOGIN_REQUEST',
@@ -50,20 +26,12 @@ const errorMeta = {
   message: 'Access Denied'
 }
 
-
 const api = {
   requestLogin: async () => {
-    let result = {}
-    const request = await axios.post(`/${service}`).then(res => {
-      result = res
-    })
-
-    return result.data
-
   }
 }
 
-function* loginRequest(api, payload) {
+function* loginRequest(api) {
   const action = yield take(createAction.type);
   const req = yield call(api.requestLogin, action.payload);
 
@@ -89,19 +57,10 @@ const SagaProvider = {
 }
 
 describe('Login SAGA', () => {
-  it('should handle `LOGIN_REQUEST`', () => {
-    return expectSaga(loginRequest, api, {
-      username: 'chuck',
-      password: 'morris'
-    })
+  it('should take `LOGIN_REQUEST` action request', () => {
+    return expectSaga(loginRequest, api)
       .provide(SagaProvider)
-
       .take(createAction.type)
-      // Assert that the `put` will eventually happen.
-      .put({
-        type: 'LOGIN_SUCCESS',
-        payload: errorMeta
-      })
 
       // Dispatch any actions that the saga will `take`.
       .dispatch({
@@ -116,36 +75,54 @@ describe('Login SAGA', () => {
       .run();
   })
 
-  // it('should put `LOGIN_SUCCESS` or `LOGIN_FAILED` accordingly', () => {
-  //   beforeEach(() => {
-  //     fetch.resetMocks()
-  //   })
+  describe('handles failed or successful authentication', () => {
+    it('then it should invalidate wrong credentials', () => {
+      return expectSaga(loginRequest, api)
+        .provide(SagaProvider)
 
-  //   fetch.mockResponseOnce(JSON.stringify({
-  //     status: 'OK',
-  //     meta: successMeta
-  //   }))
+        .take(createAction.type)
+        // Assert that the `put` will eventually happen.
+        .put({
+          type: 'LOGIN_SUCCESS',
+          payload: errorMeta
+        })
 
-  //   return expectSaga(loginRequest, api, createAction.payload)
+        // Dispatch any actions that the saga will `take`.
+        .dispatch({
+          type: 'LOGIN_REQUEST',
+          payload: {
+            username: 'chuck',
+            password: 'morris'
+          }
+        })
 
-  //   // Assert that the `put` will eventually happen.
-  //   .take(createAction.type)
-  //   .put({
-  //     type: 'LOGIN_SUCCESS',
-  //     payload: successMeta,
-  //   })
+        // Start the test. Returns a Promise.
+        .run();
+    })
 
-  //   // Dispatch any actions that the saga will `take`.
-  //   .dispatch(createAction)
+    it('and it should validate correct credentials', () => {
+      return expectSaga(loginRequest, api)
+        .provide(SagaProvider)
+        .take(createAction.type)
 
-  //   // Start the test. Returns a Promise.
-  //   .run();
+        // Assert that the `put` will eventually happen.
+        .put({
+          type: 'LOGIN_SUCCESS',
+          payload: successMeta}
+        )
 
-  //   // TODO: assert on this
-  //   // const expectedActions = [
-  //   //   { type: 'SET_ACCESS_TOKEN_FAILED', error: { status: 503 } }
-  //   // ]
-  //   // fetch.mockReject(new Error('fake error message'))
+        // Dispatch any actions that the saga will `take`.
+        .dispatch({
+          type: 'LOGIN_REQUEST',
+          payload: {
+            username: 'chuck',
+            password: 'norris'
+          }
+        })
 
-  // });
+        // Start the test. Returns a Promise.
+        .run();
+    })
+  });
+
 })
