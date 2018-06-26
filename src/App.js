@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
+import styled from 'styled-components'
 import { Layout } from 'antd'
-import {default as Login} from 'containers/Login'
 import './App.css';
+import {default as LoginContainer } from 'containers/Login'
 
+export const Wrapper = styled(Layout)`
+  font-family: 'aktiv-grotesk-std', Helvetica Neue, Arial, sans-serif;
+  background: #fff;
+  padding: 0;
+  ;`
+
+const {Content} = Layout;
 class App extends Component {
-  handleSubmit = ({username, password}) => {
-    console.log('@handleSubmit ', username, password)
-  }
+
 
   render() {
     return (
-      <div className="App">
-        <Layout>
-          <Login onSubmit={this.handleSubmit} />>
-        </Layout>
-      </div>
+      <Wrapper>
+        <Content>
+          <LoginContainer/>
+        </Content>
+      </Wrapper>
     );
   }
 }

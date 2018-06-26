@@ -1,7 +1,9 @@
 import React from 'react'
 import 'jest-dom/extend-expect';
-import {cleanup, renderIntoDocument} from 'react-testing-library'
-import {default as Login} from '../containers/Login/';
+import {cleanup, renderIntoDocument, debug} from 'react-testing-library'
+import { default as Login, eventHandler} from 'containers/Login/';
+
+console.log('eventHandler ', eventHandler)
 
 // don't forget to clean up the document.body
 afterEach(cleanup)
@@ -13,11 +15,12 @@ describe('<Login />', () => {
   })
 
   describe('when rendered', () => {
-    it('then should show login welcome text', () => {
+    it('then it should show login welcome text', () => {
        const { getByTestId } = comp
 
-      expect(getByTestId('login-screen', { selector: 'h2' })).toBeInTheDOM()
-      expect(renderIntoDocument(<Login/>)).toMatchSnapshot()
+      expect(getByTestId('login-screen', { selector: 'h2' })).toBeVisible()
     })
+
+
   });
 })
