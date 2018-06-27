@@ -1,13 +1,21 @@
 import React from 'react'
 import {default as LoginForm } from 'components/Login/Form'
 import { Card, Row, Col } from 'antd'
-
-
+import PropTypes from 'prop-types'
 
 class Login extends React.Component {
-  onSubmit = ({ username, password }) => {
-   console.log('@eventHandler ', username, password)
+  static propTypes = {
+    loginService: PropTypes.object.isRequired
   }
+
+  static defaultProps = {
+    loginService: undefined
+  }
+
+  onSubmit = ({ username, password }) => {
+    this.props.loginService.requestLogin({ username, password })
+  }
+
   render() {
     return (
     <div style={{ textAlign: "center",  padding: '30px' }} >
