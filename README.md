@@ -1,4 +1,4 @@
-## Couch Potato Movie Finder
+## [WIP] Couch Potato Movie Finder
 A tdd/bdd based development utilizing [themoviedb.org](https://www.themoviedb.org/) API
 
 ### Testing Library
@@ -25,6 +25,17 @@ Have a feel with TDD/BDD and compare enzyme with react-testing-library
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 ---
+
+### Milestones
+
+* 2018-06-13 - TDD on props validation + function spy invocation
+* 2018-06-16 - LOGIN module TDD - Actions and Reducer, Login Form
+* 2018-06-22 - REDUX SAGA test with `redux-saga-test-plan`
+* 2018-06-27 - LOGIN Container test (Bugfix: replaced `fireEvent` with `Simulate`
+* 2018-06-28 - Moved test files accordingly
+
+
+
 
 ### TIL (Today I learned)
 > 6.13.18
