@@ -9,7 +9,7 @@ class Login extends React.Component {
   }
 
   static defaultProps = {
-    loginService: undefined
+    loginService: {}
   }
 
   onSubmit = ({ username, password }) => {
