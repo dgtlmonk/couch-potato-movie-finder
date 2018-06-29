@@ -1,6 +1,6 @@
 import React from 'react'
 import 'jest-dom/extend-expect';
-import { default as Form} from '../components/Login/Form';
+import { default as Form} from 'components/Login/Form';
 import { cleanup, renderIntoDocument, Simulate } from 'react-testing-library'
 
 global.console = {
