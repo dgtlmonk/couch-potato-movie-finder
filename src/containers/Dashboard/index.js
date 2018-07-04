@@ -9,26 +9,35 @@ class Dashboard extends React.Component {
     return(
       <div>
         <Layout>
-          <Header>
-            <div className="logo">Welcome Back</div>
-            <div>
-              <AntForm>
-                <FormItem>
-                  <Input data-testid="search"></Input>
-                </FormItem>
-              </AntForm>
-            </div>
+          <Header style={{ color: 'white'}}>
+            <Row>
+              <Col span={8}><div className="logo">Welcome Back</div></Col>
+              <Col span={12}>
+                  <AntForm>
+                    <FormItem style={{ padding:'1em'}}>
+                      <Input data-testid="search"></Input>
+                    </FormItem>
+                  </AntForm>
+              </Col>
+              <Col span={4}>
+                <span>
+                  <Icon type="user" />
+                </span>
+              </Col>
+            </Row>
           </Header>
           <Content>
-           <Row>
-            <h3>Title</h3>
-           </Row>
-            <Row>
-              <div data-testid="movie-list">
-                <Col span={6}>
-                </Col>
-              </div>
-            </Row>
+           <Layout>
+              <Row>
+                <h3>Titleasdf</h3>
+              </Row>
+              <Row>
+                <div data-testid="movie-list">
+                  <Col span={6}>
+                  </Col>
+                </div>
+              </Row>
+           </Layout>
           </Content>
         </Layout>
       </div>

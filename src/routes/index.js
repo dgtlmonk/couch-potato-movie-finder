@@ -1,7 +1,5 @@
 import React from 'react'
 import { Link, Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-
-import { createMemoryHistory } from 'history'
 import styled from 'styled-components'
 import { Layout } from 'antd'
 import { default as LoginContainer } from 'containers/Login'
